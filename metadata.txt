@@ -1,0 +1,39 @@
+# This file contains metadata for your plugin. Since 
+# version 2.0 of QGIS this is the proper way to supply 
+# information about a plugin. The old method of 
+# embedding metadata in __init__.py will 
+# is no longer supported since version 2.0.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name=QRES
+qgisMinimumVersion=2.0
+description=A Simple Plugin For Vertical electrical Sounding
+version=0.1
+author=Halil BÖLÜK / Akdeniz University
+email=halilboluk@akdeniz.edu.tr
+
+about=About will be written soon
+
+tracker=https://github.com/halilboluk/qres
+repository=https://github.com/halilboluk/qres
+# End of mandatory metadata
+
+# Recommended items:
+
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags=qres, qgis, ves, des, geophysics
+
+homepage=https://github.com/halilboluk/qres
+category=Vector
+icon=icon.png
+# experimental flag
+experimental=True
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
