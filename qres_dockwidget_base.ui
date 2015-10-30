@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>380</width>
-    <height>315</height>
+    <height>265</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,17 +19,111 @@
   <property name="minimumSize">
    <size>
     <width>380</width>
-    <height>315</height>
+    <height>265</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>380</width>
-    <height>315</height>
+    <height>265</height>
    </size>
+  </property>
+  <property name="palette">
+   <palette>
+    <active>
+     <colorrole role="WindowText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>127</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="WindowText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>127</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="WindowText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>141</red>
+        <green>144</green>
+        <blue>145</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
+   </palette>
   </property>
   <property name="focusPolicy">
    <enum>Qt::NoFocus</enum>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
   </property>
   <property name="windowTitle">
    <string>QRES</string>
@@ -44,7 +138,13 @@
    <property name="minimumSize">
     <size>
      <width>0</width>
-     <height>300</height>
+     <height>250</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>250</height>
     </size>
    </property>
    <layout class="QGridLayout" name="gridLayout">
@@ -69,7 +169,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -385,7 +485,7 @@
         <property name="title">
          <string>DES Noktası Seçin</string>
         </property>
-        <widget class="QLineEdit" name="lineEdit_3">
+        <widget class="QLineEdit" name="lnZ">
          <property name="geometry">
           <rect>
            <x>110</x>
@@ -395,7 +495,7 @@
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_2">
+        <widget class="QLineEdit" name="lnY">
          <property name="geometry">
           <rect>
            <x>110</x>
@@ -462,7 +562,7 @@
           <string>Yükseklik (Z):</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="lnX">
          <property name="geometry">
           <rect>
            <x>110</x>
@@ -545,7 +645,7 @@
           <string>+</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_12">
+        <widget class="QLineEdit" name="lnT">
          <property name="geometry">
           <rect>
            <x>110</x>
@@ -881,13 +981,6 @@
         </widget>
        </widget>
       </widget>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Halil BÖLÜK (Akdeniz Üniversitesi)</string>
-      </property>
      </widget>
     </item>
    </layout>

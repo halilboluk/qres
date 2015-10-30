@@ -239,7 +239,12 @@ class qres:
         vl.updateFields()
         vl.commitChanges()
         QgsMapLayerRegistry.instance().addMapLayer(vl)
-
+    def setText(self):
+        text, ok = QtGui.QInputDialog.getText(self, "QInputDialog.getText()",
+                "User name:", QtGui.QLineEdit.Normal,
+                QtCore.QDir.home().dirName())
+        if ok and text != '':
+            self.textLabel.setText(text)
        
     def run(self):
         """Run method that loads and starts the plugin"""
