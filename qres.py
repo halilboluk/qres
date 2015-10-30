@@ -12,7 +12,7 @@
  ***************************************************************************/
 
 /***************************************************************************
- *                                                                         *
+ *                                                                          *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -20,10 +20,11 @@
  *                                                                         *
  ***************************************************************************/
 """
+from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
-from PyQt4.QtGui import QAction, QIcon
+from PyQt4.QtGui import QAction, QIcon, QInputDialog, QLineEdit
 from PyQt4.QtCore import * 
-from PyQt4.QtCore import QVariant
+from PyQt4.QtCore import QVariant,  QDir
 # Initialize Qt resources from file resources.py
 import resources
 from qgis.gui import *
@@ -226,7 +227,10 @@ class qres:
     #--------------------------------------------------------------------------
     def layer_ekle(self):
         # create layer for overview line
-        vl = QgsVectorLayer("Point", self.dockwidget.txtKatmanAdi.toPlainText(), "memory")
+        text, ok = QtGui.QInputDialog.getText(self, "QInputDialog.getText()",
+                "User name:", QtGui.QLineEdit.Normal,
+                QtCore.QDir.home().dirName())
+        vl = QgsVectorLayer("Point",report_title, "memory")
         self.dockwidget.txtKatmanAdi.setText("")
         pr = vl.dataProvider()
         vl.startEditing()
