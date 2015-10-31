@@ -20,11 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
-from PyQt4.QtGui import QAction, QIcon, QInputDialog, QLineEdit
-from PyQt4.QtCore import * 
-from PyQt4.QtCore import QVariant,  QDir
+from PyQt4.QtGui import *
+from PyQt4.QtCore import *
 # Initialize Qt resources from file resources.py
 import resources
 from qgis.gui import *
@@ -210,28 +207,13 @@ class qres:
         # remove the toolbar
         del self.toolbar
 
-    def layerEkle(self):
-        vl = QgsVectorLayer("Point", "temporary_points", "memory")
-        pr = vl.dataProvider()
-        vl.startEditing()
-        pr.addAttributes( [ QgsField("name", QVariant.String),
-                QgsField("age",  QVariant.Int),
-                QgsField("size", QVariant.Double) ] )
-        fet = QgsFeature()
-        fet.setGeometry( QgsGeometry.fromPoint(QgsPoint(10,10)) )
-        fet.setAttributeMap( { 0 : QVariant("Johny"),
-                   1 : QVariant(20),
-                   2 : QVariant(0.3) } )
-        pr.addFeatures( [ fet ] )
-        vl.commitChanges()
-    #--------------------------------------------------------------------------
+#---------
+    def des_liste(self):
+        des_layer = self.dockwidget.cmbLayer,"",{"hasGeometry": True}
     def layer_ekle(self):
+        text, ok = QInputDialog.getText(QInputDialog(),'QRes Bilgi Girisi','DES  icin katman adi giriniz:: ',QLineEdit.Normal,'DES')
         # create layer for overview line
-        text, ok = QtGui.QInputDialog.getText(self, "QInputDialog.getText()",
-                "User name:", QtGui.QLineEdit.Normal,
-                QtCore.QDir.home().dirName())
-        vl = QgsVectorLayer("Point",report_title, "memory")
-        self.dockwidget.txtKatmanAdi.setText("")
+        vl = QgsVectorLayer("Point",text, "memory")
         pr = vl.dataProvider()
         vl.startEditing()
         vl.addAttribute(QgsField("id", QVariant.Int))
@@ -239,13 +221,6 @@ class qres:
         vl.updateFields()
         vl.commitChanges()
         QgsMapLayerRegistry.instance().addMapLayer(vl)
-    def setText(self):
-        text, ok = QtGui.QInputDialog.getText(self, "QInputDialog.getText()",
-                "User name:", QtGui.QLineEdit.Normal,
-                QtCore.QDir.home().dirName())
-        if ok and text != '':
-            self.textLabel.setText(text)
-       
     def run(self):
         """Run method that loads and starts the plugin"""
         if not self.pluginIsActive:
@@ -266,7 +241,5 @@ class qres:
             self.dockwidget.show()
             self.dockwidget.btnAddLayer.clicked.connect(self.layer_ekle)
 #--------------------------------------------------------------------------
-
-	
 
 
