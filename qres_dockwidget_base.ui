@@ -78,7 +78,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabDosya">
        <attribute name="title">
@@ -848,9 +848,9 @@
         <widget class="QPushButton" name="btnOlcumEkle">
          <property name="geometry">
           <rect>
-           <x>180</x>
+           <x>220</x>
            <y>20</y>
-           <width>161</width>
+           <width>121</width>
            <height>27</height>
           </rect>
          </property>
@@ -878,6 +878,19 @@
          </property>
          <property name="duplicatesEnabled">
           <bool>false</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnDesGuncelle2">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>20</y>
+           <width>31</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>&lt;&lt;&lt;</string>
          </property>
         </widget>
        </widget>

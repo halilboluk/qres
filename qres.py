@@ -300,7 +300,6 @@ class qres:
         layers = self.iface.legendInterface().layers()
         mainLayerIndex = self.dockwidget.cmbLayer.currentIndex()
         mainLayer= layers[mainLayerIndex]
-
         for f in mainLayer.getFeatures():
             if f['ad'] == des_ad:
                 geom = f.geometry()
@@ -308,7 +307,6 @@ class qres:
         for ly in layers:
             if ly.name() == cur_layer + "_data":
                 selectedLayer = ly
-
         fet = QgsFeature()
         fet.setGeometry(geom)
         fet.setAttributes([des_ad,ab2,mn2,k,sp,v,vt,i,ra])
@@ -347,6 +345,7 @@ class qres:
             self.dockwidget.show()
             self.dockwidget.btnAddLayer.clicked.connect(self.layer_ekle)
             self.dockwidget.btnDesGuncelle.clicked.connect(self.des_liste)
+            self.dockwidget.btnDesGuncelle2.clicked.connect(self.des_liste)
             self.dockwidget.btnDesEkle.clicked.connect(self.des_ekle)
             self.dockwidget.btnOlcumEkle.clicked.connect(self.olcum_ekle)
             self.layer_liste()
