@@ -217,24 +217,71 @@ class qres:
         vl = QgsVectorLayer("Point",text, "memory")
         pr = vl.dataProvider()
         vl.startEditing()
-        vl.addAttribute(QgsField("id", QVariant.Int))
-        vl.addAttribute(QgsField("x", QVariant.Double))
+        vl.addAttribute(QgsField("ad", QVariant.String))
+        vl.addAttribute(QgsField("z", QVariant.Double))
+        vl.addAttribute(QgsField("tarih", QVariant.String))
         vl.updateFields()
         vl.commitChanges()
         QgsMapLayerRegistry.instance().addMapLayer(vl)
 
+        vl2 = QgsVectorLayer("Point",text + "_data", "memory")
+        pr2 = vl2.dataProvider()
+        vl2.startEditing()
+        vl2.addAttribute(QgsField("des_ad", QVariant.String))
+        vl2.addAttribute(QgsField("ab2", QVariant.Double))
+        vl2.addAttribute(QgsField("mn2", QVariant.Double))
+        vl2.addAttribute(QgsField("k", QVariant.Double))
+        vl2.addAttribute(QgsField("sp", QVariant.Double))
+        vl2.addAttribute(QgsField("v", QVariant.Double))
+        vl2.addAttribute(QgsField("vt", QVariant.Double))
+        vl2.addAttribute(QgsField("i", QVariant.Double))
+        vl2.addAttribute(QgsField("ra", QVariant.Double))
+        vl2.updateFields()
+        vl2.commitChanges()
+        QgsMapLayerRegistry.instance().addMapLayer(vl2)
+        self.layer_liste()
+
+    def des_liste(self):
+        layers = self.iface.legendInterface().layers()
+        selectedLayerIndex = self.dockwidget.cmbLayer.currentIndex()
+        selectedLayer = layers[selectedLayerIndex]
+        des_list = []
+        print selectedLayer.name()
+        for f in selectedLayer.getFeatures():
+            des_list.append(f['ad'])
+        self.dockwidget.cmbDesOut.clear()
+        self.dockwidget.cmbDES.clear()
+        self.dockwidget.cmbDesOut.addItems(des_list)
+        self.dockwidget.cmbDES.addItems(des_list)
     def des_ekle(self):
         layers = self.iface.legendInterface().layers()
         selectedLayerIndex = self.dockwidget.cmbLayer.currentIndex()
         selectedLayer = layers[selectedLayerIndex]
-      #  fields = selectedLayer.pendingFields()
-      #  fieldnames = [field.name() for field in fields]
-      #  des_list = []
         print selectedLayer.name()
-        for l in layers:
-            print l.name()
+        fet = QgsFeature()
+        xx = self.dockwidget.txtX.text()
+        yy = self.dockwidget.txtY.text()
+        zz = self.dockwidget.txtZ.text()
+        desName = self.dockwidget.txtDES.text()
+        tarih = self.dockwidget.txtTarih.text()
+        self.dockwidget.txtX.clear()
+        self.dockwidget.txtY.clear()
+        self.dockwidget.txtZ.clear()
+        self.dockwidget.txtDES.clear()
+        self.dockwidget.txtTarih.clear()
+        fet.setGeometry(QgsGeometry.fromPoint(QgsPoint(float(xx),float(yy))))
+        fet.setAttributes([desName,zz,tarih])
+        pr = selectedLayer.dataProvider()
+        pr.addFeatures([fet])
+        selectedLayer.updateExtents()
 
-       # pr.addAttributes([QgsField("name", QVariant.String),QgsField("age", QVariant.Int),QgsField("size", QVariant.Double)])
+    def layer_liste(self):
+        layers = self.iface.legendInterface().layers()
+        layer_list = []
+        for layer in layers:
+            layer_list.append(layer.name())
+        self.dockwidget.cmbLayer.clear()
+        self.dockwidget.cmbLayer.addItems(layer_list)
 
     def run(self):
         """Run method that loads and starts the plugin"""
@@ -255,8 +302,10 @@ class qres:
             self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
             self.dockwidget.show()
             self.dockwidget.btnAddLayer.clicked.connect(self.layer_ekle)
-            self.dockwidget.btnDesGuncelle.clicked.connect(self.des_ekle)
-
+            self.dockwidget.btnDesGuncelle.clicked.connect(self.des_liste)
+            self.dockwidget.btnDesEkle.clicked.connect(self.des_ekle)
+            self.dockwidget.btnOlcumEkle.clicked.connect(self.olcum_ekle)
+            self.layer_liste()
 #--------------------------------------------------------------------------
 
 

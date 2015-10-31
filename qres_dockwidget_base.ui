@@ -78,7 +78,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabDosya">
        <attribute name="title">
@@ -157,31 +157,6 @@
           <string>DES Katmanı Seçin:</string>
          </property>
         </widget>
-        <widget class="QgsMapLayerComboBox" name="cmbLayer">
-         <property name="geometry">
-          <rect>
-           <x>180</x>
-           <y>20</y>
-           <width>120</width>
-           <height>30</height>
-          </rect>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>120</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>120</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="insertPolicy">
-          <enum>QComboBox::InsertAtTop</enum>
-         </property>
-        </widget>
         <widget class="QPushButton" name="btnAddLayer">
          <property name="geometry">
           <rect>
@@ -211,6 +186,16 @@
          </property>
          <property name="text">
           <string>+</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="cmbLayer">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>20</y>
+           <width>131</width>
+           <height>27</height>
+          </rect>
          </property>
         </widget>
        </widget>
@@ -902,13 +887,6 @@
    </layout>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QgsMapLayerComboBox</class>
-   <extends>QComboBox</extends>
-   <header>qgsmaplayercombobox.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
