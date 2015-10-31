@@ -210,6 +210,7 @@ class qres:
 #---------
     def des_liste(self):
         des_layer = self.dockwidget.cmbLayer,"",{"hasGeometry": True}
+
     def layer_ekle(self):
         text, ok = QInputDialog.getText(QInputDialog(),'QRes Bilgi Girisi','DES  icin katman adi giriniz:: ',QLineEdit.Normal,'DES')
         # create layer for overview line
@@ -221,6 +222,14 @@ class qres:
         vl.updateFields()
         vl.commitChanges()
         QgsMapLayerRegistry.instance().addMapLayer(vl)
+
+    def des_ekle(self):
+        connectionRegistry = QgsGPSConnectionRegistry().instance()
+        connectionList = connectionRegistry.connectionList()
+        GPSInfo = connectionList[0].currentGPSInformation()
+        longitude = GPSInfo.longitude
+        latitude = GPSInfo.latitude
+
     def run(self):
         """Run method that loads and starts the plugin"""
         if not self.pluginIsActive:

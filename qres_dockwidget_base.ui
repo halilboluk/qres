@@ -78,7 +78,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -235,22 +235,12 @@
         <property name="title">
          <string>İçeri Aktar</string>
         </property>
-        <widget class="QComboBox" name="cmm">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>20</y>
-           <width>181</width>
-           <height>27</height>
-          </rect>
-         </property>
-        </widget>
         <widget class="QPushButton" name="btnIPIIn">
          <property name="geometry">
           <rect>
-           <x>287</x>
+           <x>177</x>
            <y>20</y>
-           <width>51</width>
+           <width>161</width>
            <height>27</height>
           </rect>
          </property>
@@ -261,33 +251,14 @@
         <widget class="QPushButton" name="btnR1dIn">
          <property name="geometry">
           <rect>
-           <x>237</x>
+           <x>10</x>
            <y>20</y>
-           <width>41</width>
+           <width>151</width>
            <height>27</height>
           </rect>
          </property>
          <property name="text">
           <string>R1D</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnFileIn">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>20</y>
-           <width>31</width>
-           <height>27</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>+</string>
          </property>
         </widget>
        </widget>
@@ -320,7 +291,7 @@
           <rect>
            <x>10</x>
            <y>20</y>
-           <width>221</width>
+           <width>151</width>
            <height>27</height>
           </rect>
          </property>
@@ -328,9 +299,9 @@
         <widget class="QPushButton" name="btnR1dOut">
          <property name="geometry">
           <rect>
-           <x>237</x>
+           <x>180</x>
            <y>20</y>
-           <width>41</width>
+           <width>81</width>
            <height>27</height>
           </rect>
          </property>
@@ -341,9 +312,9 @@
         <widget class="QPushButton" name="btnIPIOut">
          <property name="geometry">
           <rect>
-           <x>287</x>
+           <x>267</x>
            <y>20</y>
-           <width>51</width>
+           <width>71</width>
            <height>27</height>
           </rect>
          </property>
@@ -478,16 +449,28 @@
          <property name="geometry">
           <rect>
            <x>270</x>
-           <y>50</y>
-           <width>71</width>
-           <height>121</height>
+           <y>100</y>
+           <width>75</width>
+           <height>75</height>
           </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>75</width>
+           <height>75</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>75</height>
+          </size>
          </property>
          <property name="text">
           <string>GPS</string>
          </property>
         </widget>
-        <widget class="QLabel" name="lblX_2">
+        <widget class="QLabel" name="lblDES">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -506,35 +489,31 @@
           <string>DES Noktası :</string>
          </property>
         </widget>
-        <widget class="QComboBox" name="cmbDes">
-         <property name="geometry">
-          <rect>
-           <x>110</x>
-           <y>20</y>
-           <width>191</width>
-           <height>27</height>
-          </rect>
-         </property>
-        </widget>
         <widget class="QPushButton" name="btnDesEkle">
          <property name="geometry">
           <rect>
-           <x>310</x>
+           <x>270</x>
            <y>20</y>
-           <width>25</width>
-           <height>25</height>
+           <width>75</width>
+           <height>75</height>
           </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
          <property name="minimumSize">
           <size>
-           <width>25</width>
-           <height>25</height>
+           <width>75</width>
+           <height>75</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>25</width>
-           <height>25</height>
+           <width>75</width>
+           <height>75</height>
           </size>
          </property>
          <property name="font">
@@ -544,7 +523,7 @@
           </font>
          </property>
          <property name="text">
-          <string>+</string>
+          <string>EKLE</string>
          </property>
         </widget>
         <widget class="QLineEdit" name="txtTarih">
@@ -557,7 +536,7 @@
           </rect>
          </property>
         </widget>
-        <widget class="QLabel" name="lblZ_2">
+        <widget class="QLabel" name="lblTarih">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -574,6 +553,16 @@
          </property>
          <property name="text">
           <string>Tarih:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="txtDES">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>20</y>
+           <width>151</width>
+           <height>29</height>
+          </rect>
          </property>
         </widget>
        </widget>
@@ -616,7 +605,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>20</y>
+           <y>60</y>
            <width>150</width>
            <height>30</height>
           </rect>
@@ -647,7 +636,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>50</y>
+           <y>90</y>
            <width>71</width>
            <height>30</height>
           </rect>
@@ -666,7 +655,7 @@
          <property name="geometry">
           <rect>
            <x>180</x>
-           <y>90</y>
+           <y>130</y>
            <width>59</width>
            <height>15</height>
           </rect>
@@ -679,7 +668,7 @@
          <property name="geometry">
           <rect>
            <x>180</x>
-           <y>20</y>
+           <y>60</y>
            <width>71</width>
            <height>30</height>
           </rect>
@@ -698,7 +687,7 @@
          <property name="geometry">
           <rect>
            <x>180</x>
-           <y>110</y>
+           <y>150</y>
            <width>59</width>
            <height>30</height>
           </rect>
@@ -717,7 +706,7 @@
          <property name="geometry">
           <rect>
            <x>180</x>
-           <y>50</y>
+           <y>90</y>
            <width>59</width>
            <height>30</height>
           </rect>
@@ -736,7 +725,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>80</y>
+           <y>120</y>
            <width>59</width>
            <height>30</height>
           </rect>
@@ -755,7 +744,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>110</y>
+           <y>150</y>
            <width>81</width>
            <height>30</height>
           </rect>
@@ -775,24 +764,11 @@
           <string>Ra (Ohm.m) :</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="btnOlcumAl">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>150</y>
-           <width>161</width>
-           <height>27</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Ölçüm Al</string>
-         </property>
-        </widget>
         <widget class="QLineEdit" name="txtAB2">
          <property name="geometry">
           <rect>
            <x>90</x>
-           <y>20</y>
+           <y>60</y>
            <width>81</width>
            <height>29</height>
           </rect>
@@ -802,7 +778,7 @@
          <property name="geometry">
           <rect>
            <x>90</x>
-           <y>50</y>
+           <y>90</y>
            <width>81</width>
            <height>29</height>
           </rect>
@@ -812,7 +788,7 @@
          <property name="geometry">
           <rect>
            <x>90</x>
-           <y>80</y>
+           <y>120</y>
            <width>81</width>
            <height>29</height>
           </rect>
@@ -822,7 +798,7 @@
          <property name="geometry">
           <rect>
            <x>90</x>
-           <y>110</y>
+           <y>150</y>
            <width>81</width>
            <height>29</height>
           </rect>
@@ -832,7 +808,7 @@
          <property name="geometry">
           <rect>
            <x>250</x>
-           <y>110</y>
+           <y>150</y>
            <width>91</width>
            <height>29</height>
           </rect>
@@ -842,7 +818,7 @@
          <property name="geometry">
           <rect>
            <x>250</x>
-           <y>50</y>
+           <y>90</y>
            <width>91</width>
            <height>29</height>
           </rect>
@@ -852,7 +828,7 @@
          <property name="geometry">
           <rect>
            <x>250</x>
-           <y>20</y>
+           <y>60</y>
            <width>91</width>
            <height>29</height>
           </rect>
@@ -862,7 +838,7 @@
          <property name="geometry">
           <rect>
            <x>250</x>
-           <y>80</y>
+           <y>120</y>
            <width>91</width>
            <height>29</height>
           </rect>
@@ -872,13 +848,35 @@
          <property name="geometry">
           <rect>
            <x>180</x>
-           <y>150</y>
+           <y>20</y>
            <width>161</width>
            <height>27</height>
           </rect>
          </property>
          <property name="text">
           <string>Ölçüm Ekle</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="cmbDES">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>161</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string extracomment="DES Noktası Seçin"/>
+         </property>
+         <property name="statusTip">
+          <string extracomment="DES Noktası Seçin"/>
+         </property>
+         <property name="whatsThis">
+          <string extracomment="DES Noktası Seçin"/>
+         </property>
+         <property name="duplicatesEnabled">
+          <bool>false</bool>
          </property>
         </widget>
        </widget>
