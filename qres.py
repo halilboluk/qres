@@ -214,15 +214,7 @@ class qres:
     def layer_ekle(self):
         text, ok = QInputDialog.getText(QInputDialog(),'QRes Bilgi Girisi','DES  icin katman adi giriniz:: ',QLineEdit.Normal,'DES')
         # create layer for overview line
-        vl = QgsVectorLayer("Point",text, "memory")
-        pr = vl.dataProvider()
-        vl.startEditing()
-        vl.addAttribute(QgsField("ad", QVariant.String))
-        vl.addAttribute(QgsField("z", QVariant.Double))
-        vl.addAttribute(QgsField("tarih", QVariant.String))
-        vl.updateFields()
-        vl.commitChanges()
-        QgsMapLayerRegistry.instance().addMapLayer(vl)
+
 
         vl2 = QgsVectorLayer("Point",text + "_data", "memory")
         pr2 = vl2.dataProvider()
@@ -239,6 +231,18 @@ class qres:
         vl2.updateFields()
         vl2.commitChanges()
         QgsMapLayerRegistry.instance().addMapLayer(vl2)
+
+        vl = QgsVectorLayer("Point",text, "memory")
+        pr = vl.dataProvider()
+        vl.startEditing()
+        vl.addAttribute(QgsField("ad", QVariant.String))
+        vl.addAttribute(QgsField("z", QVariant.Double))
+        vl.addAttribute(QgsField("tarih", QVariant.String))
+        vl.updateFields()
+        vl.commitChanges()
+        QgsMapLayerRegistry.instance().addMapLayer(vl)
+
+
         self.layer_liste()
 
     def des_liste(self):
