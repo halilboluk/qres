@@ -30,7 +30,7 @@ from qgis.gui import QgsMessageBar
 # Import the code for the DockWidget
 from qres_dockwidget import qresDockWidget
 import os.path
-
+import math
 
 class qres:
     """QGIS Plugin Implementation."""
@@ -328,7 +328,16 @@ class qres:
             layer_list.append(layer.name())
         self.dockwidget.cmbLayer.clear()
         self.dockwidget.cmbLayer.addItems(layer_list)
-
+    def des_hesapla(self):
+         self.dockwidget.txtVT.setText(str(abs(float( self.dockwidget.txtV.text()) - float( self.dockwidget.txtSP.text()))))
+         self.dockwidget.txtRa.setText(str(abs(float( self.dockwidget.txtK.text()) * float( self.dockwidget.txtVT.text()) / float( self.dockwidget.txtI.text()))))
+    def k_hesapla(self):
+        ab = float(self.dockwidget.txtAB2.text())*2
+        mn = float(self.dockwidget.txtMN2.text())*2
+        sonuc = ab*ab - mn*mn
+        sonuc = sonuc / (4 * mn)
+        sonuc = sonuc * math.pi
+        self.dockwidget.txtK.setText(str(sonuc))
     def run(self):
         """Run method that loads and starts the plugin"""
         if not self.pluginIsActive:
@@ -352,6 +361,8 @@ class qres:
             self.dockwidget.btnDesGuncelle2.clicked.connect(self.des_liste)
             self.dockwidget.btnDesEkle.clicked.connect(self.des_ekle)
             self.dockwidget.btnOlcumEkle.clicked.connect(self.olcum_ekle)
+            self.dockwidget.txtV.editingFinished.connect(self.des_hesapla)
+            self.dockwidget.txtMN2.editingFinished.connect(self.k_hesapla)
             self.layer_liste()
 #--------------------------------------------------------------------------
 
