@@ -253,6 +253,7 @@ class qres:
         self.dockwidget.cmbDES.clear()
         self.dockwidget.cmbDesOut.addItems(des_list)
         self.dockwidget.cmbDES.addItems(des_list)
+
     def des_ekle(self):
         layers = self.iface.legendInterface().layers()
         selectedLayerIndex = self.dockwidget.cmbLayer.currentIndex()
@@ -274,6 +275,49 @@ class qres:
         pr = selectedLayer.dataProvider()
         pr.addFeatures([fet])
         selectedLayer.updateExtents()
+
+    def olcum_ekle(self):
+        ab2 = self.dockwidget.txtAB2.text()
+        mn2 = self.dockwidget.txtMN2.text()
+        k = self.dockwidget.txtK.text()
+        ra = self.dockwidget.txtRa.text()
+        sp = self.dockwidget.txtSP.text()
+        i = self.dockwidget.txtI.text()
+        v = self.dockwidget.txtV.text()
+        vt = self.dockwidget.txtVT.text()
+        des_ad = unicode(self.dockwidget.cmbDES.currentText())
+        print des_ad
+        self.dockwidget.txtAB2.clear()
+        self.dockwidget.txtMN2.clear()
+        self.dockwidget.txtK.clear()
+        self.dockwidget.txtRa.clear()
+        self.dockwidget.txtI.clear()
+        self.dockwidget.txtV.clear()
+        self.dockwidget.txtVT.clear()
+        self.dockwidget.txtSP.clear()
+        cur_layer = self.dockwidget.cmbLayer.currentText()
+        print cur_layer
+        layers = self.iface.legendInterface().layers()
+        mainLayerIndex = self.dockwidget.cmbLayer.currentIndex()
+        mainLayer= layers[mainLayerIndex]
+
+        for f in mainLayer.getFeatures():
+            if f['ad'] == des_ad:
+                geom = f.geometry()
+        print geom.asPoint()
+        for ly in layers:
+            if ly.name() == cur_layer + "_data":
+                selectedLayer = ly
+
+        fet = QgsFeature()
+        fet.setGeometry(geom)
+        fet.setAttributes([des_ad,ab2,mn2,k,sp,v,vt,i,ra])
+        pr = selectedLayer.dataProvider()
+        pr.addFeatures([fet])
+        selectedLayer.updateExtents()
+
+        print selectedLayer.name()
+
 
     def layer_liste(self):
         layers = self.iface.legendInterface().layers()
