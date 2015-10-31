@@ -74,7 +74,7 @@ class qres:
         
         self.pluginIsActive = False
         self.dockwidget = None
-   
+
 
 
     # noinspection PyMethodMayBeStatic
@@ -224,11 +224,17 @@ class qres:
         QgsMapLayerRegistry.instance().addMapLayer(vl)
 
     def des_ekle(self):
-        connectionRegistry = QgsGPSConnectionRegistry().instance()
-        connectionList = connectionRegistry.connectionList()
-        GPSInfo = connectionList[0].currentGPSInformation()
-        longitude = GPSInfo.longitude
-        latitude = GPSInfo.latitude
+        layers = self.iface.legendInterface().layers()
+        selectedLayerIndex = self.dockwidget.cmbLayer.currentIndex()
+        selectedLayer = layers[selectedLayerIndex]
+      #  fields = selectedLayer.pendingFields()
+      #  fieldnames = [field.name() for field in fields]
+      #  des_list = []
+        print selectedLayer.name()
+        for l in layers:
+            print l.name()
+
+       # pr.addAttributes([QgsField("name", QVariant.String),QgsField("age", QVariant.Int),QgsField("size", QVariant.Double)])
 
     def run(self):
         """Run method that loads and starts the plugin"""
@@ -249,6 +255,8 @@ class qres:
             self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
             self.dockwidget.show()
             self.dockwidget.btnAddLayer.clicked.connect(self.layer_ekle)
+            self.dockwidget.btnDesGuncelle.clicked.connect(self.des_ekle)
+
 #--------------------------------------------------------------------------
 
 

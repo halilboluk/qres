@@ -78,11 +78,11 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="tabDosya">
        <attribute name="title">
-        <string>Dosya İşlemleri</string>
+        <string>Dosya</string>
        </attribute>
        <widget class="QGroupBox" name="KatmanSec">
         <property name="enabled">
@@ -157,7 +157,7 @@
           <string>DES Katmanı Seçin:</string>
          </property>
         </widget>
-        <widget class="QgsMapLayerComboBox" name="cbmLayer">
+        <widget class="QgsMapLayerComboBox" name="cmbLayer">
          <property name="geometry">
           <rect>
            <x>180</x>
@@ -177,6 +177,9 @@
            <width>120</width>
            <height>25</height>
           </size>
+         </property>
+         <property name="insertPolicy">
+          <enum>QComboBox::InsertAtTop</enum>
          </property>
         </widget>
         <widget class="QPushButton" name="btnAddLayer">
@@ -291,7 +294,7 @@
           <rect>
            <x>10</x>
            <y>20</y>
-           <width>151</width>
+           <width>131</width>
            <height>27</height>
           </rect>
          </property>
@@ -299,9 +302,9 @@
         <widget class="QPushButton" name="btnR1dOut">
          <property name="geometry">
           <rect>
-           <x>180</x>
+           <x>220</x>
            <y>20</y>
-           <width>81</width>
+           <width>61</width>
            <height>27</height>
           </rect>
          </property>
@@ -312,9 +315,9 @@
         <widget class="QPushButton" name="btnIPIOut">
          <property name="geometry">
           <rect>
-           <x>267</x>
+           <x>287</x>
            <y>20</y>
-           <width>71</width>
+           <width>51</width>
            <height>27</height>
           </rect>
          </property>
@@ -322,11 +325,24 @@
           <string>IPI2WIN</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnDesGuncelle">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>20</y>
+           <width>61</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>&lt;&lt;&lt;</string>
+         </property>
+        </widget>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="tabDES">
        <attribute name="title">
-        <string>DES Noktası</string>
+        <string>DES</string>
        </attribute>
        <widget class="QGroupBox" name="groupBox">
         <property name="geometry">
@@ -567,9 +583,9 @@
         </widget>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab_3">
+      <widget class="QWidget" name="tab_Olcum">
        <attribute name="title">
-        <string>Ölçüm İşlemleri</string>
+        <string>Ölçüm</string>
        </attribute>
        <widget class="QGroupBox" name="OlcumEkle">
         <property name="geometry">
