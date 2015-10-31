@@ -899,11 +899,184 @@
        <attribute name="title">
         <string>İşlemler</string>
        </attribute>
+       <widget class="QPushButton" name="pushButton">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>161</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>DES Eğrileri 
+Oluşturma</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="geometry">
+         <rect>
+          <x>177</x>
+          <y>10</y>
+          <width>171</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Eşdeğer Özdirenç 
+Kesitleri Oluşturma</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="geometry">
+         <rect>
+          <x>177</x>
+          <y>116</y>
+          <width>171</width>
+          <height>81</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Ölçüm Güzergahı 
+Profilleri Gösterimi</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>116</y>
+          <width>161</width>
+          <height>81</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Eşdeğer Özdirenç 
+ Haritaları Oluşturma</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tabCihaz">
        <attribute name="title">
         <string>Cihaz</string>
        </attribute>
+       <widget class="QGroupBox" name="groupBox_4">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>341</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Ölçüm Cihazı Ayarları</string>
+        </property>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>211</width>
+           <height>29</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>COM1;9600;N;8;1</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>20</y>
+           <width>88</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Bağlan</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>70</y>
+          <width>341</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Voltmetre Ayarları</string>
+        </property>
+        <widget class="QLineEdit" name="lineEdit_2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>211</width>
+           <height>29</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>COM3;9600;N;8;1</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_6">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>20</y>
+           <width>88</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Bağlan</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_6">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>130</y>
+          <width>341</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Ampermetre Ayarları</string>
+        </property>
+        <widget class="QLineEdit" name="lineEdit_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>211</width>
+           <height>29</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>COM3;9600;N;8;1</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_7">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>20</y>
+           <width>88</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Bağlan</string>
+         </property>
+        </widget>
+       </widget>
       </widget>
       <widget class="QWidget" name="tabYardim">
        <attribute name="title">

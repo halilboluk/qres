@@ -338,6 +338,78 @@ class qres:
         sonuc = sonuc / (4 * mn)
         sonuc = sonuc * math.pi
         self.dockwidget.txtK.setText(str(sonuc))
+    def r1d_disari_aktar(self):
+        des_ad = unicode(self.dockwidget.cmbDES.currentText())
+        dosya_adi = des_ad + ".dat"
+        print dosya_adi
+        filename = QFileDialog.getSaveFileName(self.dockwidget,"Kaydetmek icin dosya secin", dosya_adi, ".dat")
+        layers = self.iface.legendInterface().layers()
+        selectedLayerIndex = self.dockwidget.cmbLayer.currentIndex()
+        cur_layer = layers[selectedLayerIndex]
+
+        for ly in layers:
+            if ly.name() == cur_layer.name() + "_data":
+                selectedLayer = ly
+        bas = des_ad + '\n'
+        bas = bas + 'Array Type (Wenner or Schlumbeger)' + '\n'
+        bas = bas + 'Schlumberger' + '\n'
+        bas = bas + 'Number of data points' + '\n'
+        say = 0
+        line=""
+        for f in selectedLayer.getFeatures():
+            if f['des_ad'] == des_ad:
+                a= float(f['ab2'])
+                b= float(f['mn2'])*2
+                ohm = float(f['ra'])
+                line = line + str(a) + '\t' + str(b) + '\t' + str(ohm) + '\n'
+                say = say + 1
+        bas = bas + str(say) + '\n'
+        bas = bas + 'Data Type (Resistivity,IP,SIP)' + '\n'
+        bas = bas + 'Resistivity' + '\n'
+        bas = bas + 'Error in measurements included (Yes,No)' + '\n'
+        bas = bas + 'No' + '\n'
+        bas = bas + 'Data section' + '\n'
+        bas = bas + line
+        bas = bas + 'User Starting Model Available (Yes/No)' + '\n'
+        bas = bas + 'No' + '\n'
+        bas = bas + 'Fix Parameters (Yes/No)' + '\n'
+        bas = bas + 'No'
+        veri = unicode(bas)
+        yaz = open(filename , 'w')
+        yaz.write(veri)
+        yaz.close()
+
+    def ipi2Win_disari_aktar(self):
+        des_ad = unicode(self.dockwidget.cmbDES.currentText())
+        dosya_adi = des_ad + ".TXT"
+        print dosya_adi
+        filename = QFileDialog.getSaveFileName(self.dockwidget,"Kaydetmek icin dosya secin", dosya_adi, ".TXT")
+        layers = self.iface.legendInterface().layers()
+        selectedLayerIndex = self.dockwidget.cmbLayer.currentIndex()
+        cur_layer = layers[selectedLayerIndex]
+
+        for ly in layers:
+            if ly.name() == cur_layer.name() + "_data":
+                selectedLayer = ly
+        yaz = open(filename , 'w')
+        line= 'AB/2' + '\t' + 'MN' + '\t' + 'Ro_a' + '\r\n'
+        yaz.write(unicode(line))
+        yaz.close()
+
+        yaz = open(filename , 'a')
+        for f in selectedLayer.getFeatures():
+            if f['des_ad'] == des_ad:
+                a= float(f['ab2'])
+                b= float(f['mn2'])*2
+                ohm = float(f['ra'])
+                line = str(a) + '\t' + str(b) + '\t' + str(ohm) + '\r\n'
+                yaz.write(line)
+
+
+
+        yaz.close()
+
+
     def run(self):
         """Run method that loads and starts the plugin"""
         if not self.pluginIsActive:
@@ -363,6 +435,8 @@ class qres:
             self.dockwidget.btnOlcumEkle.clicked.connect(self.olcum_ekle)
             self.dockwidget.txtV.editingFinished.connect(self.des_hesapla)
             self.dockwidget.txtMN2.editingFinished.connect(self.k_hesapla)
+            self.dockwidget.btnR1dOut.clicked.connect(self.r1d_disari_aktar)
+            self.dockwidget.btnIPIOut.clicked.connect(self.ipi2Win_disari_aktar)
             self.layer_liste()
 #--------------------------------------------------------------------------
 
