@@ -208,8 +208,7 @@ class qres:
         del self.toolbar
 
 #---------
-    def des_liste(self):
-        des_layer = self.dockwidget.cmbLayer,"",{"hasGeometry": True}
+
 
     def layer_ekle(self):
         text, ok = QInputDialog.getText(QInputDialog(),'QRes Bilgi Girisi','DES  icin katman adi giriniz:: ',QLineEdit.Normal,'DES')
@@ -254,9 +253,11 @@ class qres:
         for f in selectedLayer.getFeatures():
             des_list.append(f['ad'])
         self.dockwidget.cmbDesOut.clear()
+        self.dockwidget.cmbDesIn.clear()
         self.dockwidget.cmbDES.clear()
         self.dockwidget.cmbDesOut.addItems(des_list)
         self.dockwidget.cmbDES.addItems(des_list)
+        self.dockwidget.cmbDesIn.addItems(des_list)
 
     def des_ekle(self):
         layers = self.iface.legendInterface().layers()
@@ -301,9 +302,11 @@ class qres:
         self.dockwidget.txtSP.clear()
         cur_layer = self.dockwidget.cmbLayer.currentText()
         print cur_layer
+
         layers = self.iface.legendInterface().layers()
         mainLayerIndex = self.dockwidget.cmbLayer.currentIndex()
         mainLayer= layers[mainLayerIndex]
+
         for f in mainLayer.getFeatures():
             if f['ad'] == des_ad:
                 geom = f.geometry()
@@ -317,9 +320,7 @@ class qres:
         pr = selectedLayer.dataProvider()
         pr.addFeatures([fet])
         selectedLayer.updateExtents()
-
         print selectedLayer.name()
-
 
     def layer_liste(self):
         layers = self.iface.legendInterface().layers()
@@ -328,9 +329,11 @@ class qres:
             layer_list.append(layer.name())
         self.dockwidget.cmbLayer.clear()
         self.dockwidget.cmbLayer.addItems(layer_list)
+
     def des_hesapla(self):
          self.dockwidget.txtVT.setText(str(abs(float( self.dockwidget.txtV.text()) - float( self.dockwidget.txtSP.text()))))
          self.dockwidget.txtRa.setText(str(abs(float( self.dockwidget.txtK.text()) * float( self.dockwidget.txtVT.text()) / float( self.dockwidget.txtI.text()))))
+
     def k_hesapla(self):
         ab = float(self.dockwidget.txtAB2.text())*2
         mn = float(self.dockwidget.txtMN2.text())*2
@@ -338,6 +341,7 @@ class qres:
         sonuc = sonuc / (4 * mn)
         sonuc = sonuc * math.pi
         self.dockwidget.txtK.setText(str(sonuc))
+
     def r1d_disari_aktar(self):
         des_ad = unicode(self.dockwidget.cmbDES.currentText())
         dosya_adi = des_ad + ".dat"
@@ -346,6 +350,7 @@ class qres:
         layers = self.iface.legendInterface().layers()
         selectedLayerIndex = self.dockwidget.cmbLayer.currentIndex()
         cur_layer = layers[selectedLayerIndex]
+
 
         for ly in layers:
             if ly.name() == cur_layer.name() + "_data":
@@ -395,7 +400,6 @@ class qres:
         line= 'AB/2' + '\t' + 'MN' + '\t' + 'Ro_a' + '\r\n'
         yaz.write(unicode(line))
         yaz.close()
-
         yaz = open(filename , 'a')
         for f in selectedLayer.getFeatures():
             if f['des_ad'] == des_ad:
@@ -404,12 +408,78 @@ class qres:
                 ohm = float(f['ra'])
                 line = str(a) + '\t' + str(b) + '\t' + str(ohm) + '\r\n'
                 yaz.write(line)
-
-
-
         yaz.close()
 
 
+    def r1d_Iceri_aktar(self):
+        filename = QFileDialog.getOpenFileName(self.dockwidget,"Açmak icin dosya secin", '/', '*.INV')
+        f = open(filename, 'r')
+        readData = f.readlines()
+        #print readData
+
+        say = 0
+        inv_rev_list = []
+        inv_rev=[]
+        for l in reversed(readData):
+            if l[:4] == "Data":
+                break
+            cleaned_data = l.replace('    ', ';').strip().replace(' ', '')
+            splitted_data = cleaned_data.split(',')
+            say = say + 1
+            if say > 2:
+                inv_rev_list.append(cleaned_data)
+                print splitted_data
+        f.close()
+        inv_list = reversed(inv_rev_list)
+
+
+
+        layers = self.iface.legendInterface().layers()
+        mainLayerName = self.dockwidget.cmbLayer.currentText()
+        print "1" + mainLayerName
+        des_ad = self.dockwidget.cmbDES.currentText()
+        print "2" +des_ad
+        for ly in layers:
+            if ly.name() == mainLayerName + "_data":
+                dataLayer = ly
+                dataLayerName = ly.name()
+        print "3" + dataLayerName
+        for f in dataLayer.getFeatures():
+            if f['des_ad'] == des_ad:
+                geom = f.geometry()
+                #print  geom.asPoint()
+
+
+        text = "r1d_in"
+        vl2 = QgsVectorLayer("Point",text + "_data", "memory")
+        pr2 = vl2.dataProvider()
+        vl2.startEditing()
+        vl2.addAttribute(QgsField("des_ad", QVariant.String))
+        vl2.addAttribute(QgsField("ab2", QVariant.Double))
+        vl2.addAttribute(QgsField("mn", QVariant.Double))
+        vl2.addAttribute(QgsField("ra", QVariant.Double))
+        vl2.updateFields()
+        vl2.commitChanges()
+        QgsMapLayerRegistry.instance().addMapLayer(vl2)
+
+        fet = QgsFeature(vl2.pendingFields())
+        for d in inv_list:
+
+            sp = d.split(';')
+            print sp
+            des='des'
+            ab2 = float(sp[1])
+            mn = float(sp[2])
+            ra = float(sp[3])
+            #print des
+            #print ab2
+            #print mn
+            #print ra
+            fet.setAttributes([des_ad,ab2,mn,ra])
+            fet.setGeometry(geom)
+            vl2.dataProvider().addFeatures([fet])
+            print '-------added'
+        vl2.updateExtents()
     def run(self):
         """Run method that loads and starts the plugin"""
         if not self.pluginIsActive:
@@ -436,6 +506,7 @@ class qres:
             self.dockwidget.txtV.editingFinished.connect(self.des_hesapla)
             self.dockwidget.txtMN2.editingFinished.connect(self.k_hesapla)
             self.dockwidget.btnR1dOut.clicked.connect(self.r1d_disari_aktar)
+            self.dockwidget.btnR1dIn.clicked.connect(self.r1d_Iceri_aktar)
             self.dockwidget.btnIPIOut.clicked.connect(self.ipi2Win_disari_aktar)
             self.layer_liste()
 #--------------------------------------------------------------------------
