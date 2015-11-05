@@ -415,11 +415,11 @@ class qres:
         filename = QFileDialog.getOpenFileName(self.dockwidget,"Açmak icin dosya secin", '/', '*.INV')
         f = open(filename, 'r')
         readData = f.readlines()
-        #print readData
-
+        
         say = 0
         inv_rev_list = []
         inv_rev=[]
+
         for l in reversed(readData):
             if l[:4] == "Data":
                 break
@@ -428,58 +428,64 @@ class qres:
             say = say + 1
             if say > 2:
                 inv_rev_list.append(cleaned_data)
-                print splitted_data
+                splitted_data
         f.close()
         inv_list = reversed(inv_rev_list)
 
 
-
+        durum = 'yok'
         layers = self.iface.legendInterface().layers()
         mainLayerName = self.dockwidget.cmbLayer.currentText()
-        print "1" + mainLayerName
-        des_ad = self.dockwidget.cmbDES.currentText()
-        print "2" +des_ad
+        
+        des_ad = self.dockwidget.cmbDesIn.currentText()
+        
         for ly in layers:
-            if ly.name() == mainLayerName + "_data":
+            if ly.name() == mainLayerName:
                 dataLayer = ly
-                dataLayerName = ly.name()
-        print "3" + dataLayerName
+            if ly.name() == 'r1d_in_data':
+                vl2 = ly
+                durum ='var'
+
+        geom =  QgsGeometry()
         for f in dataLayer.getFeatures():
-            if f['des_ad'] == des_ad:
+            if f['ad'] == des_ad:
                 geom = f.geometry()
-                #print  geom.asPoint()
+                break
 
+        if durum == 'yok':
+            crs = dataLayer.crs().authid()
+            text = "r1d_in"
+            vl2 = QgsVectorLayer("Point?crs=" + crs, text + "_data", "memory")
+            pr2 = vl2.dataProvider()
+            vl2.startEditing()
+            vl2.addAttribute(QgsField("des_ad", QVariant.String))
+            vl2.addAttribute(QgsField("ab2", QVariant.Double))
+            vl2.addAttribute(QgsField("mn", QVariant.Double))
+            vl2.addAttribute(QgsField("ra", QVariant.Double))
+            vl2.updateFields()
+            vl2.commitChanges()
+            QgsMapLayerRegistry.instance().addMapLayer(vl2)
 
-        text = "r1d_in"
-        vl2 = QgsVectorLayer("Point",text + "_data", "memory")
-        pr2 = vl2.dataProvider()
-        vl2.startEditing()
-        vl2.addAttribute(QgsField("des_ad", QVariant.String))
-        vl2.addAttribute(QgsField("ab2", QVariant.Double))
-        vl2.addAttribute(QgsField("mn", QVariant.Double))
-        vl2.addAttribute(QgsField("ra", QVariant.Double))
-        vl2.updateFields()
-        vl2.commitChanges()
-        QgsMapLayerRegistry.instance().addMapLayer(vl2)
+        fets=[]
 
-        fet = QgsFeature(vl2.pendingFields())
         for d in inv_list:
-
+            fet = QgsFeature(vl2.pendingFields())
             sp = d.split(';')
-            print sp
             des='des'
             ab2 = float(sp[1])
             mn = float(sp[2])
             ra = float(sp[3])
-            #print des
-            #print ab2
-            #print mn
-            #print ra
             fet.setAttributes([des_ad,ab2,mn,ra])
             fet.setGeometry(geom)
-            vl2.dataProvider().addFeatures([fet])
-            print '-------added'
+            fets.append(fet)
+        print des_ad + 'added'
+
+        vl2.dataProvider().addFeatures(fets)
         vl2.updateExtents()
+    def ipi2win_in(self):
+        QMessageBox.about(self.dockwidget, "UYARI", "BU FONKSIYON HENUZ EKLENMEDI")
+    def getGPS(self):
+            QMessageBox.warning(self.dockwidget, "UYARI", "BU FONKSIYON DENEME ASAMASINDA")
     def run(self):
         """Run method that loads and starts the plugin"""
         if not self.pluginIsActive:
@@ -501,6 +507,7 @@ class qres:
             self.dockwidget.btnAddLayer.clicked.connect(self.layer_ekle)
             self.dockwidget.btnDesGuncelle.clicked.connect(self.des_liste)
             self.dockwidget.btnDesGuncelle2.clicked.connect(self.des_liste)
+            self.dockwidget.btnDesGuncelle3.clicked.connect(self.des_liste)
             self.dockwidget.btnDesEkle.clicked.connect(self.des_ekle)
             self.dockwidget.btnOlcumEkle.clicked.connect(self.olcum_ekle)
             self.dockwidget.txtV.editingFinished.connect(self.des_hesapla)
@@ -508,6 +515,8 @@ class qres:
             self.dockwidget.btnR1dOut.clicked.connect(self.r1d_disari_aktar)
             self.dockwidget.btnR1dIn.clicked.connect(self.r1d_Iceri_aktar)
             self.dockwidget.btnIPIOut.clicked.connect(self.ipi2Win_disari_aktar)
+            self.dockwidget.btnIPIIn.clicked.connect(self.ipi2win_in)
+            self.dockwidget.btnGPS.clicked.connect(self.getGPS)
             self.layer_liste()
 #--------------------------------------------------------------------------
 
