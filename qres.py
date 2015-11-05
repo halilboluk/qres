@@ -34,7 +34,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import spline
-
+from scipy.interpolate import Rbf
 class qres:
     """QGIS Plugin Implementation."""
 
@@ -523,10 +523,59 @@ class qres:
         plt.xscale('log')
 
         plt.title('DES - ' + des_ad)
-        plt.ylabel(unicode('Gorunur Ozdirenc (Ohm.m'))
+        plt.ylabel(unicode('Gorunur Ozdirenc (Ohm.m)'))
         plt.xlabel(unicode('AB/2 (metre)'))
         plt.grid(True, which='both')
         plt.show()
+
+    def coRes(self):
+        layers = self.iface.legendInterface().layers()
+        for ly in layers:
+            if ly.name() == 'r1d_in_data':
+                vl2 = ly
+        print vl2.name()
+        x=[]
+        y=[]
+        values =[]
+        ab = self.dockwidget.txtAB2CoRes.text()
+        print ab
+
+        for f in vl2.getFeatures():
+            #print f['ab2']
+            if f['ab2'] == float(ab):
+                geom = f.geometry()
+                x.append(geom.asPoint().x())
+                y.append(geom.asPoint().y())
+                values.append(f['ra'])
+
+        #Creating the output grid (100x100, in the example)
+        #x = [10,60,40,70,10,50,20,70,30,60]
+        #y = [10,20,30,30,40,50,60,70,80,90]
+        #values = [1,2,2,3,4,6,7,7,8,10]
+        print x
+        print y
+        #print xx
+
+        txi = np.linspace(min(x), max(x), 10000)
+        tyi = np.linspace(min(y), max(y), 10000)
+        XI, YI = np.meshgrid(ti, ti)
+
+        #Creating the interpolation function and populating the output matrix value
+        rbf = Rbf(x, y, values, function='inverse')
+        ZI = rbf(XI, YI)
+
+        # Plotting the result
+        n = plt.normalize(0.0, 1000.0)
+        plt.subplot(1, 1, 1)
+        plt.pcolor(XI, YI, ZI)
+        plt.scatter(x, y, 1000, values)
+        plt.title('RBF interpolation')
+        plt.xlim(min(x), max(x))
+        plt.ylim(min(y), max(y))
+        plt.colorbar()
+
+        plt.show()
+
 
     def run(self):
         """Run method that loads and starts the plugin"""
@@ -561,6 +610,7 @@ class qres:
             self.dockwidget.btnIPIIn.clicked.connect(self.ipi2win_in)
             self.dockwidget.btnGPS.clicked.connect(self.getGPS)
             self.dockwidget.btnDesGrafik.clicked.connect(self.des_grafik)
+            self.dockwidget.btnCoResMap.clicked.connect(self.coRes)
             self.layer_liste()
 #--------------------------------------------------------------------------
 
