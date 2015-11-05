@@ -31,6 +31,9 @@ from qgis.gui import QgsMessageBar
 from qres_dockwidget import qresDockWidget
 import os.path
 import math
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.interpolate import spline
 
 class qres:
     """QGIS Plugin Implementation."""
@@ -255,9 +258,11 @@ class qres:
         self.dockwidget.cmbDesOut.clear()
         self.dockwidget.cmbDesIn.clear()
         self.dockwidget.cmbDES.clear()
+        self.dockwidget.cmbDesGrafik.clear()
         self.dockwidget.cmbDesOut.addItems(des_list)
         self.dockwidget.cmbDES.addItems(des_list)
         self.dockwidget.cmbDesIn.addItems(des_list)
+        self.dockwidget.cmbDesGrafik.addItems(des_list)
 
     def des_ekle(self):
         layers = self.iface.legendInterface().layers()
@@ -486,6 +491,43 @@ class qres:
         QMessageBox.about(self.dockwidget, "UYARI", "BU FONKSIYON HENUZ EKLENMEDI")
     def getGPS(self):
             QMessageBox.warning(self.dockwidget, "UYARI", "BU FONKSIYON DENEME ASAMASINDA")
+    def des_grafik(self):
+        layers = self.iface.legendInterface().layers()
+        des_ad = self.dockwidget.cmbDesGrafik.currentText()
+
+        for ly in layers:
+            if ly.name() == 'r1d_in_data':
+                vl2 = ly
+
+
+
+        xx=[]
+        yy=[]
+        for f in vl2.getFeatures():
+            if f['des_ad'] == des_ad:
+                xx.append(f['ab2'])
+                yy.append(f['ra'])
+
+
+        # make up some data in the interval ]0, 1[
+        # plot with various axes scales
+        plt.figure(1)
+        x =  np.array(xx)
+        y =  np.array(yy)
+
+        xnew = np.linspace(x.min(),x.max(),1000000)
+        power_smooth = spline(x,y,xnew)
+        plt.plot(x,y, 'bo', xnew,power_smooth,'r')
+        plt.axis([25, 4000, 1, 1000])
+        plt.yscale('log')
+        plt.xscale('log')
+
+        plt.title('DES - ' + des_ad)
+        plt.ylabel(unicode('Gorunur Ozdirenc (Ohm.m'))
+        plt.xlabel(unicode('AB/2 (metre)'))
+        plt.grid(True, which='both')
+        plt.show()
+
     def run(self):
         """Run method that loads and starts the plugin"""
         if not self.pluginIsActive:
@@ -508,6 +550,7 @@ class qres:
             self.dockwidget.btnDesGuncelle.clicked.connect(self.des_liste)
             self.dockwidget.btnDesGuncelle2.clicked.connect(self.des_liste)
             self.dockwidget.btnDesGuncelle3.clicked.connect(self.des_liste)
+            self.dockwidget.btnDesGuncelle4.clicked.connect(self.des_liste)
             self.dockwidget.btnDesEkle.clicked.connect(self.des_ekle)
             self.dockwidget.btnOlcumEkle.clicked.connect(self.olcum_ekle)
             self.dockwidget.txtV.editingFinished.connect(self.des_hesapla)
@@ -517,6 +560,7 @@ class qres:
             self.dockwidget.btnIPIOut.clicked.connect(self.ipi2Win_disari_aktar)
             self.dockwidget.btnIPIIn.clicked.connect(self.ipi2win_in)
             self.dockwidget.btnGPS.clicked.connect(self.getGPS)
+            self.dockwidget.btnDesGrafik.clicked.connect(self.des_grafik)
             self.layer_liste()
 #--------------------------------------------------------------------------
 

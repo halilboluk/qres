@@ -78,7 +78,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tabDosya">
        <attribute name="title">
@@ -922,13 +922,13 @@
        <attribute name="title">
         <string>İşlemler</string>
        </attribute>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="btnDesGrafik">
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>10</y>
+          <y>50</y>
           <width>161</width>
-          <height>91</height>
+          <height>51</height>
          </rect>
         </property>
         <property name="text">
@@ -976,6 +976,29 @@ Profilleri Gösterimi</string>
         <property name="text">
          <string>Eşdeğer Özdirenç 
  Haritaları Oluşturma</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="cmbDesGrafik">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>111</width>
+          <height>27</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnDesGuncelle4">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>10</y>
+          <width>31</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;&lt;&lt;</string>
         </property>
        </widget>
       </widget>
